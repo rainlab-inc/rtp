@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pion/rtp/codecs"
+	"github.com/rainlab-inc/rtp/codecs"
 )
 
 //TODO: Add tests for packetizer with CSRC support
