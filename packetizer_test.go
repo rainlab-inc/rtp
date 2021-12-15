@@ -9,11 +9,12 @@ import (
 	"github.com/pion/rtp/codecs"
 )
 
+//TODO: Add tests for packetizer with CSRC support
 func TestPacketizer(t *testing.T) {
 	multiplepayload := make([]byte, 128)
 	//use the G722 payloader here, because it's very simple and all 0s is valid G722 data.
 	packetizer := NewPacketizer(100, 98, 0x1234ABCD, &codecs.G722Payloader{}, NewRandomSequencer(), 90000)
-	packets := packetizer.Packetize(multiplepayload, 2000)
+	packets := packetizer.Packetize(multiplepayload, 2000, nil)
 
 	if len(packets) != 2 {
 		packetlengths := ""
@@ -35,7 +36,7 @@ func TestPacketizer_AbsSendTime(t *testing.T) {
 	pktizer.EnableAbsSendTime(1)
 
 	payload := []byte{0x11, 0x12, 0x13, 0x14}
-	packets := pktizer.Packetize(payload, 2000)
+	packets := pktizer.Packetize(payload, 2000, nil)
 
 	expected := &Packet{
 		Header: Header{
